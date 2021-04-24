@@ -1,29 +1,28 @@
-$(function (){
-    $("input:checkbox[id='seluserAll']").click(function() {
-        if($(this).is(':checked')) {
-            $('input:checkbox').each(function() {
+$(function () {
+    $("input:checkbox[id='seluserAll']").click(function () {
+        if ($(this).is(':checked')) {
+            $('input:checkbox').each(function () {
                 $(this).prop("checked", true);
             });
         } else {
-            $('input:checkbox').each(function() {
+            $('input:checkbox').each(function () {
                 $(this).prop("checked", false);
             });
         }
     });
 
-    $("input:checkbox[id='selnewsAll']").click(function() {
-        if($(this).is(':checked')) {
-            $('input:checkbox').each(function() {
+    $("input:checkbox[id='selnewsAll']").click(function () {
+        if ($(this).is(':checked')) {
+            $('input:checkbox').each(function () {
                 $(this).prop("checked", true);
             });
         } else {
-            $('input:checkbox').each(function() {
+            $('input:checkbox').each(function () {
                 $(this).prop("checked", false);
             });
         }
     });
 });
-
 
 
 //登录
@@ -38,7 +37,7 @@ function login() {
     $.post('/login', data, function (data) {
         if (data.success) {
             alert(data.msg);
-            location.href="/adm";
+            location.href = "/adm";
         } else {
             alert(data.msg);
         }
@@ -46,25 +45,24 @@ function login() {
 }
 
 
-
 //用户
-
 
 
 //添加用户
 function redadd() {
-    location.href="/adm/user/add-user";
+    location.href = "/adm/user/add-user";
 }
 
 function register() {
     var type = 2;
     var types = document.getElementsByName("type");
-    for(var i=0; i<types.length; i++){
-        if(types[i].checked){
+    for (var i = 0; i < types.length; i++) {
+        if (types[i].checked) {
             type = types[i].value;
             break;
         }
-    };
+    }
+    ;
 
     data = {
         'username': $("#username").val().trim(),
@@ -77,24 +75,24 @@ function register() {
     $.post('/adm/user/add-user', data, function (data) {
         if (data.success) {
             alert(data.msg);
-            location.href="/adm/user";
+            location.href = "/adm/user";
         } else {
             alert(data.msg);
         }
     }, 'json');
 }
 
-function abandon(){
-    location.href="/adm/user";
+function abandon() {
+    location.href = "/adm/user";
 }
 
 //用户详情、修改个人资料
-function userinfo(obj){
+function userinfo(obj) {
     var id = $(obj).prev().val();
-    location.href="/adm/user/info/" + id;
+    location.href = "/adm/user/info/" + id;
 }
 
-function edituser(){
+function edituser() {
     data = {
         'id': $("#id").val(),
         'telephone': $("#telephone").val().trim(),
@@ -106,7 +104,7 @@ function edituser(){
     $.post('/adm/user/info', data, function (data) {
         if (data.success) {
             alert(data.msg);
-            location.href="/adm/user";
+            location.href = "/adm/user";
         } else {
             alert(data.msg);
         }
@@ -114,12 +112,12 @@ function edituser(){
 }
 
 //修改密码
-function editpwd(obj){
+function editpwd(obj) {
     var id = $(obj).prev().prev().val();
-    location.href="/adm/user/edit-user/" + id;
+    location.href = "/adm/user/edit-user/" + id;
 }
 
-function changepwd(){
+function changepwd() {
     data = {
         'id': $("#id").val(),
         'password': $("#password").val(),
@@ -129,7 +127,7 @@ function changepwd(){
     $.post('/adm/user/edit-user', data, function (data) {
         if (data.success) {
             alert(data.msg);
-            location.href="/adm/user";
+            location.href = "/adm/user";
         } else {
             alert(data.msg);
         }
@@ -137,16 +135,16 @@ function changepwd(){
 }
 
 //删除用户
-function delone(obj){
+function delone(obj) {
     var id = $(obj).prev().prev().prev().val();
     var username = $(obj).prev().prev().prev().prev().val();
     var authname = $(obj).prev().prev().prev().prev().prev().val();
-    if (authname == username){
+    if (authname == username) {
         alert("不能删除当前登录用户哦(✿◡‿◡)");
         return;
     }
-    var mymessage=confirm("确定要删除 " + username + " 用户么？");
-    if (mymessage){
+    var mymessage = confirm("确定要删除 " + username + " 用户么？");
+    if (mymessage) {
         data = {
             'id': id,
             'logname': authname,
@@ -155,7 +153,7 @@ function delone(obj){
         };
         $.post('/adm/user/delone-user', data, function (data) {
             if (data.success) {
-                location.href="/adm/user";
+                location.href = "/adm/user";
             } else {
                 alert(data.msg);
             }
@@ -164,28 +162,28 @@ function delone(obj){
 }
 
 //删除所选用户
-function delalluser(obj){
+function delalluser(obj) {
     var dau = document.getElementsByName("userlist");
     var arr = new Array();
-    for(var i = 0; i < dau.length; i++){
-        if(dau[i].checked){
+    for (var i = 0; i < dau.length; i++) {
+        if (dau[i].checked) {
             arr.push(dau[i].value);
-            if (dau[i].value == $(obj).val()){
+            if (dau[i].value == $(obj).val()) {
                 alert("不能删除当前登录用户哦(✿◡‿◡)");
                 return;
             }
         }
     }
-    var mymessage=confirm("确定要删除这些用户么？");
-    if (mymessage){
-        for(var i = 0; i < dau.length; i++){
+    var mymessage = confirm("确定要删除这些用户么？");
+    if (mymessage) {
+        for (var i = 0; i < dau.length; i++) {
             data = {
                 'id': arr,
                 '_token': $("#_token").val()
             };
             $.post('/adm/user/delall-user', data, function (data) {
                 if (data.success) {
-                    location.href="/adm/user";
+                    location.href = "/adm/user";
                 } else {
                     alert(data.msg);
                 }
@@ -194,26 +192,32 @@ function delalluser(obj){
     }
 }
 
+//下拉框
+function selchange() {
+    var options = $("#select option:selected").val();
+    var search = $("#search").val();
 
+    location.href = "/adm/user?options=" + options + "&search=" + search;
+}
 
 
 //新闻
 
 
-
 function newsadd() {
-    location.href="/adm/news/add-news";
+    location.href = "/adm/news/add-news";
 }
 
 function addnews() {
     var type = 2;
     var types = document.getElementsByName("type");
-    for(var i=0; i<types.length; i++){
-        if(types[i].checked){
+    for (var i = 0; i < types.length; i++) {
+        if (types[i].checked) {
             type = types[i].value;
             break;
         }
-    };
+    }
+    ;
 
     data = {
         'title': $("#title").val().trim(),
@@ -225,34 +229,34 @@ function addnews() {
     $.post('/adm/news/add-news', data, function (data) {
         if (data.success) {
             alert(data.msg);
-            location.href="/adm/news";
+            location.href = "/adm/news";
         } else {
             alert(data.msg);
         }
     }, 'json');
 }
 
-function abandon_news(){
-    location.href="/adm/news";
+function abandon_news() {
+    location.href = "/adm/news";
 }
 
 
 //修改新闻
-function newsedit(obj){
+function newsedit(obj) {
     var id = $(obj).prev().prev().val();
-    location.href="/adm/news/edit-news/" + id;
+    location.href = "/adm/news/edit-news/" + id;
 }
 
-function editnews(){
+function editnews() {
     var type = 2;
     var types = document.getElementsByName("type");
-    for(var i=0; i<types.length; i++){
-        if(types[i].checked){
+    for (var i = 0; i < types.length; i++) {
+        if (types[i].checked) {
             type = types[i].value;
             break;
         }
     }
-    if(type != "1" && type != "0"){
+    if (type != "1" && type != "0") {
         alert("请选择新闻类别");
         return;
     }
@@ -268,7 +272,7 @@ function editnews(){
     $.post('/adm/news/edit-news', data, function (data) {
         if (data.success) {
             alert(data.msg);
-            location.href="/adm/news";
+            location.href = "/adm/news";
         } else {
             alert(data.msg);
         }
@@ -276,24 +280,24 @@ function editnews(){
 }
 
 //新闻详情
-function newsinfo(obj){
+function newsinfo(obj) {
     var id = $(obj).prev().val();
-    location.href="/adm/news/info/" + id;
+    location.href = "/adm/news/info/" + id;
 }
 
 //删除新闻
-function delonenews(obj){
+function delonenews(obj) {
     var id = $(obj).prev().prev().prev().val();
     var title = $(obj).prev().prev().prev().prev().val();
-    var mymessage=confirm("确定要删除 " + title + " 新闻么？");
-    if (mymessage){
+    var mymessage = confirm("确定要删除 " + title + " 新闻么？");
+    if (mymessage) {
         data = {
             'id': id,
             '_token': $("#_token").val()
         };
         $.post('/adm/news/delone-news', data, function (data) {
             if (data.success) {
-                location.href="/adm/news";
+                location.href = "/adm/news";
             } else {
                 alert(data.msg);
             }
@@ -302,24 +306,24 @@ function delonenews(obj){
 }
 
 //删除所选新闻
-function delallnews(){
+function delallnews() {
     var dau = document.getElementsByName("newslist");
-    var mymessage=confirm("确定要删除这些新闻么？");
+    var mymessage = confirm("确定要删除这些新闻么？");
     var arr = new Array();
-    for(var i = 0; i < dau.length; i++) {
+    for (var i = 0; i < dau.length; i++) {
         if (dau[i].checked) {
             arr.push(dau[i].value);
         }
     }
-    if (mymessage){
-        for(var i = 0; i < dau.length; i++){
+    if (mymessage) {
+        for (var i = 0; i < dau.length; i++) {
             data = {
                 'id': arr,
                 '_token': $("#_token").val()
             };
             $.post('/adm/news/delall-news', data, function (data) {
                 if (data.success) {
-                    location.href="/adm/news";
+                    location.href = "/adm/news";
                 } else {
                     alert(data.msg);
                 }
@@ -328,6 +332,13 @@ function delallnews(){
     }
 }
 
+//下拉框
+function selchangenews() {
+    var options = $("#select option:selected").val();
+    var search = $("#search").val();
+
+    location.href = "/adm/news?options=" + options + "&search=" + search;
+}
 
 
 
@@ -336,17 +347,17 @@ function delallnews(){
 
 
 //返回新闻列表
-function abandon_front(){
-    location.href="/front/news";
+function abandon_front() {
+    location.href = "/front/news";
 }
 
 //评论
-function say_log(){
+function say_log() {
     alert("还没登陆呐！");
 }
 
-function say(obj){
-    if ($("#content").val().trim() == ""){
+function say(obj) {
+    if ($("#content").val().trim() == "") {
         alert("评论内容不能为空");
         return;
     }
@@ -359,7 +370,7 @@ function say(obj){
     };
     $.post('/front/comnews', data, function (data) {
         if (data.success) {
-            location.href="/front/info/" + id;
+            location.href = "/front/info/" + id;
         } else {
             alert(data.msg);
         }
@@ -367,8 +378,8 @@ function say(obj){
 }
 
 //前台登录
-function frontlog(obj){
-    if ($("#username").val().trim() == "" || $("#password").val() == ""){
+function frontlog(obj) {
+    if ($("#username").val().trim() == "" || $("#password").val() == "") {
         alert("用户名和密码不能为空");
     }
     var id = $(obj).val();
@@ -380,7 +391,7 @@ function frontlog(obj){
     };
     $.post('/front/frlog', data, function (data) {
         if (data.success) {
-            location.href="/front/info/" + id;
+            location.href = "/front/info/" + id;
         } else {
             alert(data.msg);
         }
@@ -388,7 +399,7 @@ function frontlog(obj){
 }
 
 //前台注册用户
-function zhuce(obj){
+function zhuce(obj) {
     var id = $(obj).val();
 
     data = {
@@ -401,7 +412,7 @@ function zhuce(obj){
     $.post('/front/frzhuce', data, function (data) {
         if (data.success) {
             alert("chenggong")
-            location.href="/front/info/" + id;
+            location.href = "/front/info/" + id;
         } else {
             alert(data.msg);
         }

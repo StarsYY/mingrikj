@@ -26,24 +26,21 @@
 
             <div class="am-u-sm-12 am-u-md-3">
                 <div class="am-form-group">
-                    <select data-am-selected="{btnSize: 'sm'}">
-                    <option value="2">所有类别</option>
-                    <option value="1">国内新闻</option>
-                    <option value="0">国际新闻</option>
+                    <select id="select" onchange="selchangenews()">
+                    <option value="2" @if($options == 2)selected@endif>所有类别</option>
+                    <option value="1" @if($options == 1)selected@endif>国内新闻</option>
+                    <option value="0" @if($options == 0)selected@endif>国际新闻</option>
                     </select>
                 </div>
             </div>
 
             <div class="am-u-sm-12 am-u-md-3">
-                <form action="/adm/news">
-                    <input type="hidden" name="_token" id="_token" value="{{csrf_token()}}" />
-                    <div class="am-input-group am-input-group-sm">
-                        <input type="text" id="search" name="search" class="am-form-field">
-                        <span class="am-input-group-btn">
-						    <button class="am-btn am-btn-default" type="submit">搜索</button>
-				        </span>
-                    </div>
-                </form>
+                <div class="am-input-group am-input-group-sm">
+                    <input type="text" id="search" name="search" class="am-form-field" value="@if(isset($search)){{$search}}@endif">
+                    <span class="am-input-group-btn">
+                        <button class="am-btn am-btn-default" type="button" onclick="selchangenews()">搜索</button>
+                    </span>
+                </div>
             </div>
         </div>
         <!-- 新闻上方区域，增删...结束 -->
@@ -100,11 +97,7 @@
                     <div class="am-cf">
                         共 {{$count}} 条记录
                         <div class="am-fr">
-                            @if(isset($search))
-                                <ul class="am-pagination">{{$newss->appends(array('search' => $search))->links()}}</ul>
-                            @else
-                                <ul class="am-pagination">{{$newss->links()}}</ul>
-                            @endif
+                            <ul class="am-pagination">{{$newss->appends(array('search' => $search, 'options' => $options))->links()}}</ul>
                         </div>
                     </div>
                     <hr/>

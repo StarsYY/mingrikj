@@ -31,16 +31,18 @@ class UserController extends BaseController
             return Redirect::to('/login');
         }
 
-        $search = Input::get('search');
-        if ($search == ""){
-            $count = User::count();
-            $users = User::paginate(6);
-            return View::make('user.list')->with('users', $users)->with('count', $count);
-        } else{
+        $datas = Input::all();
+        Input::has('options')?$options = $datas['options']:$options = 2;
+        Input::has('search')?$search = $datas['search']:$search = '';
+
+        if ($options == 2){
             $users = User::Where('username','like','%'.$search.'%')->paginate(6);
             $count = User::Where('username','like','%'.$search.'%')->count();
-            return View::make('user.list')->with('users', $users)->with('search', $search)->with('count', $count);
+            return View::make('user.list', array('users'=>$users, 'search'=>$search, 'count'=>$count, 'options'=>$options));
         }
+        $users = User::Where('type','like',$options)->Where('username','like','%'.$search.'%')->paginate(6);
+        $count = User::Where('type','like',$options)->Where('username','like','%'.$search.'%')->count();
+        return View::make('user.list', array('users'=>$users, 'search'=>$search, 'count'=>$count, 'options'=>$options));
     }
 
     /**
@@ -283,7 +285,7 @@ class UserController extends BaseController
         if ($type->type == 0){
             return json_encode(array('success'=>false, 'msg'=>'普通用户不能登录哦(❁´◡`❁)'));
         } else if (Auth::attempt(array('username'=>$username, 'password'=>$password))){
-            if (($_SERVER['REMOTE_ADDR'] == "221.192.180.224") && ($username == "admin")){
+            if (($_SERVER['REMOTE_ADDR'] == "221.192.180.142") && ($username == "admin")){
                 $history = new History();
                 $history->hsname = $username;
                 $history->hstype = 1;

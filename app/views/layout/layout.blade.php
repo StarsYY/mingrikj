@@ -101,7 +101,6 @@
 <footer>
     <hr>
     <p class="am-padding-left" style="text-align: center">© 2014 AllMobilize, Inc. Licensed under MIT license.  <a href="/">前台</a></p>
-    <p>{{$_SERVER['REMOTE_ADDR']}}</p>
 </footer>
 
 </body>

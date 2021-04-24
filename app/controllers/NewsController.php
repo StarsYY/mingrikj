@@ -19,16 +19,18 @@ class NewsController extends BaseController
             return Redirect::to('/login');
         }
 
-        $search = Input::get('search');
-        if ($search == ""){
-            $count = Neww::count();
-            $newss = Neww::orderBy('id', 'desc')->paginate(6);
-            return View::make('news.list')->with('newss', $newss)->with('count', $count);
-        } else{
-            $newss = Neww::Where('title','like','%'.$search.'%')->orderBy('id', 'desc')->paginate(6);
+        $datas = Input::all();
+        Input::has('options')?$options = $datas['options']:$options = 2;
+        Input::has('search')?$search = $datas['search']:$search = '';
+
+        if ($options == 2){
+            $newss = Neww::Where('title','like','%'.$search.'%')->orderBy('updated_at', 'desc')->paginate(6);
             $count = Neww::Where('title','like','%'.$search.'%')->count();
-            return View::make('news.list')->with('newss', $newss)->with('search', $search)->with('count', $count);
+            return View::make('news.list', array('newss'=>$newss, 'search'=>$search, 'count'=>$count, 'options'=>$options));
         }
+        $newss = Neww::Where('type','like',$options)->Where('title','like','%'.$search.'%')->orderBy('updated_at', 'desc')->paginate(6);
+        $count = Neww::Where('type','like',$options)->Where('title','like','%'.$search.'%')->count();
+        return View::make('news.list', array('newss'=>$newss, 'search'=>$search, 'count'=>$count, 'options'=>$options));
     }
 
     /**
@@ -134,7 +136,7 @@ class NewsController extends BaseController
         $news = Neww::find($id);
 //        $author=$news->author->name;
         $user = User::Where('username', 'like', $news->publisher)->first();
-        $comment = Comment::Where('comtitle', 'like', $news->title)->orderBy('id', 'desc')->paginate(8);
+        $comment = Comment::Where('comtitle', 'like', $news->title)->orderBy('created_at', 'desc')->paginate(8);
         $count = Comment::Where('comtitle', 'like', $news->title)->count();
         return View::make('news.info')
             ->with('news', $news)

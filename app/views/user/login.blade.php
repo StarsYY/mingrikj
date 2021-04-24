@@ -62,7 +62,7 @@
             </div>
         </form>
         <hr>
-        <p>© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+        <p>© 2014 AllMobilize, Inc. Licensed under MIT license.{{$_SERVER['REMOTE_ADDR']}}</p>
     </div>
 </div>
 </body>
