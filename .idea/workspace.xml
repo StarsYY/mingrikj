@@ -2,15 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fe6f5426-9531-4903-a7b0-866424c985d3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/MAC.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/NewsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/NewsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/layout/layout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/layout/layout.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/news/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/news/list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/user/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/user/list.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/user/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/user/login.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/admin/assets/js/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/admin/assets/js/admin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_files.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_files.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_static.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_static.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,17 +75,21 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\PHP\WWW\mingrikeji\app" />
       <recent name="E:\PHP\WWW\mingrikeji\public\images" />
       <recent name="E:\PHP\WWW\mingrikeji\app\lang\zh_cn" />
       <recent name="E:\PHP\WWW\mingrikeji\public\admin\assets\js" />
       <recent name="E:\PHP\WWW\mingrikeji\public" />
-      <recent name="E:\PHP\WWW\mingrikeji\app\views" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\PHP\WWW\mingrikeji\app" />
+      <recent name="E:\PHP\WWW\mingrikeji\app\views\user" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -121,6 +123,8 @@
       <workItem from="1619252848967" duration="1520000" />
       <workItem from="1619255964526" duration="10997000" />
       <workItem from="1619268381784" duration="1030000" />
+      <workItem from="1619275256097" duration="8000" />
+      <workItem from="1619319664200" duration="1683000" />
     </task>
     <servers />
   </component>

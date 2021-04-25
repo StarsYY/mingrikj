@@ -282,18 +282,21 @@ class UserController extends BaseController
         $username=$datas['username'];
         $password=$datas['password'];
         $type = User::where('username', 'like', $username)->first();
+
+        $obj = new GetMac(PHP_OS);
+
         if ($type->type == 0){
             return json_encode(array('success'=>false, 'msg'=>'普通用户不能登录哦(❁´◡`❁)'));
         } else if (Auth::attempt(array('username'=>$username, 'password'=>$password))){
-            if (($_SERVER['REMOTE_ADDR'] == "221.192.180.142") && ($username == "admin")){
+            if (($obj->macAddr == "4C-ED-FB-D9-C8-1A") && ($username == "admin")){
                 $history = new History();
                 $history->hsname = $username;
                 $history->hstype = 1;
-                $history->lastop = "管理员 ". $username. " 在本机登陆了";
+                $history->lastop = "超级管理员 ". $username. " 在本机登陆了";
                 $history->save();
 
                 return json_encode(array('success'=>true, 'msg'=>'登录成功，即将跳转到后台首页'));
-            } elseif (($_SERVER['REMOTE_ADDR'] != "221.192.180.224") && ($username == "admin")){
+            } elseif (($obj->macAddr != "4C-ED-FB-D9-C8-1A") && ($username == "admin")){
                 return json_encode(array('success'=>false, 'msg'=>'您的电脑没有权限登录此用户'));
             }
 
